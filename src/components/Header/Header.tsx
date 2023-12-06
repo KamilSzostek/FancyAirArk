@@ -17,7 +17,8 @@ const Header: FC<IHeaderProps> = ({ pagePosition, setPagePosition }) => {
     useEffect(() => {
         headerRef.current && headerRef.current.addEventListener('wheel', (e: WheelEvent) => e.deltaY > 0 && headerRef.current && setPagePosition(headerRef.current.scrollHeight))
         document.addEventListener('keydown', (e: KeyboardEvent) => e.key === 'ArrowDown' && headerRef.current && setPagePosition(headerRef.current.scrollHeight))
-        window.addEventListener('resize', () => pagePosition > 0 && headerRef.current && setPagePosition(headerRef.current.scrollHeight))
+        window.addEventListener('resize', () => {
+            headerRef.current && setPagePosition(0)})
     }, [])
     return (
         <motion.header
