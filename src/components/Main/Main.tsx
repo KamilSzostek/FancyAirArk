@@ -11,6 +11,7 @@ interface IMainProps {
     setPagePosition: (pagePosition: number) => void
 }
 const Main: FC<IMainProps> = ({ pagePosition, setPagePosition }) => {
+    const [touchStartPosition, setTouchStartPosition] = useState(0)
     const [selectedModel, setSelectedModel] = useState(dronesGallery[1].id)
     const mainRef = useRef<HTMLElement>(null)
     const barRef = useRef<HTMLDivElement>(null)
@@ -30,15 +31,23 @@ const Main: FC<IMainProps> = ({ pagePosition, setPagePosition }) => {
 
     const listElements = models.map((model, key) => (<li key={key} className={selectedModel.toLowerCase() === model ? styles.active : ''} onClick={selectModel}>{model}</li>))
     const selectedImage = dronesGallery.find(drone => selectedModel.toLowerCase() === drone.id)
-    const selectedImageElement = selectedImage ? <Image ref={selectedImageRef} src={selectedImage.src} alt={selectedImage.alt} width={1200} height={1200} priority/> : null
+    const selectedImageElement = selectedImage ? <Image ref={selectedImageRef} src={selectedImage.src} alt={selectedImage.alt} width={1200} height={1200} priority /> : null
     const selectedModelIndex = selectedImage ? dronesGallery.findIndex((drone) => drone.id === selectedImage.id) : 1
+    const onTouchStart = (e: React.TouchEvent<HTMLElement>) => {
+        setTouchStartPosition(e.changedTouches[0].clientY)
+    }
+    const onTouchEnd = (e: React.TouchEvent<HTMLElement>) => {
+        touchStartPosition - e.changedTouches[0].clientY < -10 && setPagePosition(0)
+    }
     return (
         <motion.main
             ref={mainRef}
             className={styles.main}
             initial={{ y: 0 }}
             animate={{ y: -pagePosition - 25 }}
-            transition={{ type: 'ease-in', delay: 0.5, duration: 2 }}>
+            transition={{ type: 'ease-in', delay: 0.5, duration: 2 }}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}>
             <h1>airark</h1>
             <section className={styles.presentation}>
                 <aside className={styles.models}>

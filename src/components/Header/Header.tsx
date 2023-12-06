@@ -1,4 +1,4 @@
-import { FC, useRef, useEffect } from 'react';
+import { FC, useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Menu from '../../../public/assets/menu.png'
@@ -12,14 +12,20 @@ interface IHeaderProps {
 }
 
 const Header: FC<IHeaderProps> = ({ pagePosition, setPagePosition }) => {
+    const [touchStartPosition, setTouchStartPosition] = useState(0)
     const headerRef = useRef<HTMLElement>(null)
     const transition = { type: 'ease in', duration: 1, delay: 2 }
     useEffect(() => {
-        headerRef.current && headerRef.current.addEventListener('wheel', (e: WheelEvent) => e.deltaY > 0 && headerRef.current && setPagePosition(headerRef.current.scrollHeight))
-        document.addEventListener('keydown', (e: KeyboardEvent) => e.key === 'ArrowDown' && headerRef.current && setPagePosition(headerRef.current.scrollHeight - 50))
+        document.addEventListener('keydown', (e: KeyboardEvent) => e.key === 'ArrowDown' && headerRef.current && setPagePosition(headerRef.current.scrollHeight + 50))
         window.addEventListener('resize', () => {
             headerRef.current && setPagePosition(0)})
     }, [])
+    const onTouchStart = (e: React.TouchEvent<HTMLElement>) => {
+        setTouchStartPosition(e.changedTouches[0].clientY)
+    }
+    const onTouchEnd = (e: React.TouchEvent<HTMLElement>) => {
+        touchStartPosition - e.changedTouches[0].clientY > 10 && headerRef.current && setPagePosition(headerRef.current.scrollHeight + 50) 
+    }
     return (
         <motion.header
             ref={headerRef}
@@ -27,6 +33,9 @@ const Header: FC<IHeaderProps> = ({ pagePosition, setPagePosition }) => {
             initial={{ y: 0 }}
             animate={{ y: -pagePosition }}
             transition={{ type: 'ease-in', delay: 0.5, duration: 2 }}
+            onWheel={(e: React.WheelEvent<HTMLElement>) => e.deltaY > 0 && headerRef.current && setPagePosition(headerRef.current.scrollHeight)}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
         >
             <nav className={styles.nav}>
                 <motion.button
