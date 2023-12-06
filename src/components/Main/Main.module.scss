@@ -1,0 +1,272 @@
+.main {
+    position: relative;
+    min-height: 100vh;
+    color: #fff;
+    text-transform: uppercase;
+    overflow: hidden;
+
+    h1 {
+        padding-top: 1em;
+        font-size: 5rem;
+        letter-spacing: .5em;
+        text-align: center;
+    }
+
+    .presentation {
+        position: relative;
+        display: flex;
+        margin-top: 2em;
+
+        h2 {
+            position: absolute;
+            top: 70%;
+            left: 10%;
+            color: #fff;
+            font-size: 1.5rem;
+            letter-spacing: .25em;
+
+            div {
+                color: #ffffff0a;
+                font-size: 3.5rem;
+                letter-spacing: .25em;
+                text-align: center;
+                -webkit-text-stroke: #fff;
+                -webkit-text-stroke-width: 1px;
+            }
+        }
+
+        .models {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30%;
+            height: 200px;
+
+            ul {
+                list-style: none;
+
+                li {
+                    margin-bottom: 1em;
+                    color: #ffffffac;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    transition: transform .5s;
+                    &:hover{
+                        color: #fff;
+                    }
+                }
+
+                .active {
+                    color: #fff;
+                    scale: 1.1;
+                }
+
+            }
+        }
+
+        .gallery {
+            position: relative;
+            width: 70%;
+            height: 500px;
+            background-image: url('../../../public/assets/airport2.png');
+            background-position: center;
+            background-size: cover;
+            filter: brightness(80%);
+            overflow: hidden;
+
+            .images {
+                width: 100%;
+                height: 100%;
+                backdrop-filter: blur(2px);
+
+                img {
+                    width: 250px;
+                    height: 500px;
+                    -webkit-clip-path: polygon(0 0, 100% 0, 64% 100%, 0% 100%);
+                    clip-path: polygon(0 0, 100% 0, 64% 100%, 0% 100%);
+                }
+            }
+
+            .progressBar {
+                position: absolute;
+                bottom: 20px;
+                left: 5%;
+                right: 15%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+
+                .bar {
+                    width: 90%;
+                    height: 5px;
+                    border: #fff solid 1px;
+                    overflow: hidden;
+
+                    .fill {
+                        width: 100%;
+                        height: 100%;
+                        background-color: #f3a6b5;
+                        transition: .5s;
+                    }
+                }
+
+                span {
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+
+    .arrow {
+        position: absolute;
+        bottom: 30px;
+        right: 10px;
+        display: flex;
+        cursor: pointer;
+
+        span {
+            font-size: 1rem;
+            transform: rotate(90deg) translate(-150%, 7%);
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .main {
+
+        h1 {
+            font-size: 7rem;
+        }
+
+        .presentation {
+            h2 {
+                font-size: 2.2rem;
+                line-height: 2.5em;
+
+                div {
+                    font-size: 4.5rem;
+                }
+            }
+
+            .models {
+                height: 500px;
+
+                ul {
+                    li {
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+
+            .gallery {
+                height: 700px;
+
+                .images {
+                    img {
+                        width: 450px;
+                        height: 700px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    .main {
+
+        h1 {
+            font-size: 12rem;
+        }
+
+        .presentation {
+            h2 {
+                font-size: 3.5rem;
+                line-height: 2.5em;
+
+                div {
+                    font-size: 6.5rem;
+                }
+            }
+
+            .models {
+                height: 600px;
+
+                ul {
+                    li {
+                        font-size: 1.7rem;
+                    }
+                }
+            }
+
+            .gallery {
+                height: 800px;
+
+                .images {
+                    img {
+                        width: 750px;
+                        height: 800px;
+                        transition: opacity .5s;
+                    }
+                }
+
+                .progressBar {
+                    .bar {
+                        height: 7px;
+                    }
+                }
+            }
+        }
+
+        .arrow {
+            span {
+                font-size: 1.2rem;
+                transform: rotate(90deg) translate(-130%, -2%);
+            }
+        }
+    }
+}
+
+@media (min-width: 1400px) {
+    .main {
+
+        .presentation {
+            .models {
+                width: 20%;
+            }
+
+            .gallery {
+                width: 80%;
+                .images {
+                    img {
+                        width: 1200px;
+                    }
+                }
+
+                .progressBar {
+                    .bar {
+                        height: 7px;
+                    }
+                }
+            }
+        }
+        .arrow {
+            span {
+                font-size: 1.2rem;
+                transform: rotate(90deg) translate(-130%, -2%);
+            }
+        }
+    }
+}
+.fade{
+    animation: fade 1s 1 forwards;
+}
+@keyframes fade {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
