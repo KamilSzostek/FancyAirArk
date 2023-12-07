@@ -1,3 +1,7 @@
+@font-face {
+  font-family: 'Aquire';
+  src: url('../../public/Aquire-BW0ox.otf') format('truetype');
+}
 :root {
   --font-futuristic: 'Aquire', sans-serif;
     font-size: 62.5%;

@@ -16,7 +16,7 @@ const Header: FC<IHeaderProps> = ({ pagePosition, setPagePosition }) => {
     const headerRef = useRef<HTMLElement>(null)
     const transition = { type: 'ease in', duration: 1, delay: 2 }
     useEffect(() => {
-        document.addEventListener('keydown', (e: KeyboardEvent) => e.key === 'ArrowDown' && headerRef.current && setPagePosition(headerRef.current.scrollHeight + 50))
+        document.addEventListener('keydown', (e: KeyboardEvent) => e.key === 'ArrowDown' && headerRef.current && setPagePosition(headerRef.current.scrollHeight ))
         window.addEventListener('resize', () => {
             headerRef.current && setPagePosition(0)})
     }, [])
@@ -24,7 +24,7 @@ const Header: FC<IHeaderProps> = ({ pagePosition, setPagePosition }) => {
         setTouchStartPosition(e.changedTouches[0].clientY)
     }
     const onTouchEnd = (e: React.TouchEvent<HTMLElement>) => {
-        touchStartPosition - e.changedTouches[0].clientY > 10 && headerRef.current && setPagePosition(headerRef.current.scrollHeight + 50) 
+        touchStartPosition - e.changedTouches[0].clientY > 10 && headerRef.current && setPagePosition(headerRef.current.scrollHeight) 
     }
     return (
         <motion.header
